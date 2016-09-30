@@ -1,0 +1,1 @@
+Basic template for building react redux apps
