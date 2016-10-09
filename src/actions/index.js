@@ -1,6 +1,9 @@
+import quickconnect from 'rtc-quickconnect'
+
+import { SWITCHBOARD_URL } from '../config'
 
 export const appInit = () => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     const signaller = require('../configureSignaller')(dispatch)
 
     dispatch({
@@ -10,7 +13,40 @@ export const appInit = () => {
 
     signaller.announce({ room: 'tchr-client-demo' });
 
-    setTimeout(() => signaller.send('/greet', 'hiyooooo'), 2000);
+    navigator.getUserMedia(
+      { audio: true, video: true },
+      (stream) => {
+        dispatch({
+          type: 'LOCAL_STREAM_STARTED',
+          stream,
+        })
+
+        quickconnect(SWITCHBOARD_URL, { room: 'conftest' })
+          // broadcast our captured media to other participants in the room
+          .addStream(stream)
+          // when a peer is connected (and active) pass it to us for use
+          .on('call:started', function(id, pc, data) {
+            console.log('peer connected: ', id);
+            console.log(pc.getRemoteStreams());
+            // render the remote streams
+            dispatch({
+              type: 'REMOTE_STREAMS_RESET',
+              streams: pc.getRemoteStreams()
+            })
+          })
+          // when a peer leaves, remove teh media
+          .on('call:ended', (id) => {
+            console.log('peer disconnected: ', id);
+            dispatch({
+              type: 'REMOTE_STREAMS_RESET',
+              streams: getState().remoteStreams.filter(stream => stream.id !== id)
+            })
+          })
+      },
+      (err) => {
+        console.log(err)
+      }
+    )
   }
 }
 

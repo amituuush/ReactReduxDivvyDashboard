@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import { appInit, appTeardown, } from '../actions'
 import Chat from './Chat'
+import Room from './Room'
 
 class App extends React.Component {
   componentWillMount() {
@@ -20,6 +21,7 @@ class App extends React.Component {
       <h1>Users online</h1>
       {users.map(user => <h3 key={user.id}>{user.id}</h3>)} 
       <Chat />
+      <Room />
     </div>
   }
 }

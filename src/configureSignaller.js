@@ -2,9 +2,7 @@ const messenger = require('rtc-switchboard-messenger')
 const RtcSignaller = require('rtc-signaller')
 
 const { peerArrival, peerExit, receiveMessage } = require('./actions')
-
-const SWITCHBOARD_URL = 'http://tchr-switchboard.herokuapp.com'
-// const SWITCHBOARD_URL = 'http://localhost:5000'
+const { SWITCHBOARD_URL } = require('./config')
 
 module.exports = (dispatch) => {
   const signaller = RtcSignaller(messenger(SWITCHBOARD_URL))

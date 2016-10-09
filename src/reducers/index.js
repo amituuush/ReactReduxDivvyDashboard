@@ -29,7 +29,27 @@ export const users = (state=[], action) => {
   }
 }
 
+export const localStream = (state=null, action) => {
+  switch (action.type) {
+    case 'LOCAL_STREAM_STARTED':
+      return action.stream
+    default:
+      return state
+  }
+}
+
+export const remoteStreams = (state=[], action) => {
+  switch (action.type) {
+    case 'REMOTE_STREAMS_RESET':
+      return action.streams
+    default:
+      return state
+  }
+}
+
 export const app = combineReducers({
+  localStream,
+  remoteStreams,
   messages,
   signaller,
   users,
