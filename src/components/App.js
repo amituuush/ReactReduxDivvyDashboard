@@ -1,27 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { appInit, appTeardown, } from '../actions'
-import Chat from './Chat'
-import Room from './Room'
+import { increment, decrement, } from '../actionCreators'
 
 class App extends React.Component {
-  componentWillMount() {
-    this.props.dispatchAppInit()
-  }
-
-  componentWillUnmount() {
-    this.props.dispatchAppTeardown()
-  }
-
   render() {
-    const { users } = this.props
+    const { dispatchDecrement, dispatchIncrement, value } = this.props
 
     return <div className="app">
-      <h1>Users online</h1>
-      {users.map(user => <h3 key={user.id}>{user.id}</h3>)} 
-      <Chat />
-      <Room />
+      <h1>{value}</h1>
+      <button onClick={dispatchIncrement}>Increment</button>
+      <button onClick={dispatchDecrement}>Decrement</button>
     </div>
   }
 }
@@ -29,7 +18,7 @@ class App extends React.Component {
 export default connect(
   state => state,
   {
-    dispatchAppInit: appInit,
-    dispatchAppTeardown: appTeardown,
+    dispatchDecrement: decrement,
+    dispatchIncrement: increment,
   }
 )(App)
