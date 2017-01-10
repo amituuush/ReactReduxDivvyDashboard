@@ -1,1 +1,1 @@
-Basic template for building react redux apps
+React bike share dashboard
