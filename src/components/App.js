@@ -1,24 +1,39 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import {
+  fetchNearbyStations,
+  fetchUserLocation
+} from '../actionCreators';
 
 import { increment, decrement, } from '../actionCreators'
 
 class App extends React.Component {
-  render() {
-    const { dispatchDecrement, dispatchIncrement, value } = this.props
 
+  componentDidMount() {
+    this.props.fetchUserLocation();
+    this.props.fetchNearbyStations(this.props.userLocation);
+  }
+
+  render() {
+
+  console.log(this.props.nearbyStations);
     return <div className="app">
-      <h1>{value}</h1>
-      <button onClick={dispatchIncrement}>Increment</button>
-      <button onClick={dispatchDecrement}>Decrement</button>
+      <h1>Nearby Stations</h1>
+
     </div>
   }
 }
 
-export default connect(
-  state => state,
-  {
-    dispatchDecrement: decrement,
-    dispatchIncrement: increment,
-  }
-)(App)
+
+function mapStateToProps(state) {
+  return {
+    nearbyStations: state.nearbyStations,
+    userLocation: state.userLocation
+   };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchNearbyStations, fetchUserLocation }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
