@@ -1,42 +1,92 @@
-import axios from 'axios';
+import { createApiURL } from '../helpers'
+import fetch from 'isomorphic-fetch';
+
 import {
-  FETCH_NEARBY_STATIONS,
-  FETCH_USER_LOCATION
+
+  NEARBY_STATIONS_REQUEST,
+  NEARBY_STATIONS_SUCCESS,
+  NEARBY_STATIONS_ERROR,
+
+  USER_LOCATION_REQUEST,
+  USER_LOCATION_SUCCESS,
+  USER_LOCATION_ERROR,
+
 } from '../actionTypes';
 
-var API_ROUTE = 'http://shrouded-beach-2183.herokuapp.com/stations/nearby?lat=25&lon=122'
+const fetchNearbyStationsFetching = () => {
+  return ({
+    type: NEARBY_STATIONS_REQUEST
+  });
+}
 
-export const fetchNearbyStations = (lat, lon) => ({
-
-  var request = axios.get(`http://shrouded-beach-2183.herokuapp.com/stations/nearby?lat=${lat}&lon=${lon}`);
-
+const fetchNearbyStationsSuccess = (stations) => {
   return {
-    type: FETCH_NEARBY_STATIONS,
-    payload: request
-  }
-})
+    type: NEARBY_STATIONS_SUCCESS,
+    stations
+  };
+}
 
-export const fetchUserLocation = () => {
-  if(navigator.location) {
-    var successCallback = (position) => {
+const fetchNearbyStationsError = (exception) => {
+  return {
+    type: NEARBY_STATIONS_ERROR,
+    exception
+  };
+}
 
-      let { longitude, latitude } = position.coords;
+export const fetchNearbyStations = (lat = '37.774929', lon = '-122.419416', maxStations = 5) => {
 
-      return {
-        type: FETCH_USER_LOCATION,
-        longitude,
-        latitude
-      }
-    }
+  return dispatch => {
 
-    var errorCallback = () => {
-      return {
-        type: FETCH_USER_LOCATION,
-        longitude: -87,
-        latitude: 41
-      }
-    }
+    dispatch(fetchNearbyStationsFetching());
 
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    return fetch(createApiURL(lat, lon, maxStations))
+      .then(response => response.json())
+      .then(json => dispatch(fetchNearbyStationsSuccess(json)))
+      .catch(ex => dispatch(fetchNearbyStationsError(ex)))
   }
 }
+
+const userLocationFetching = () => {
+  return {
+    type: USER_LOCATION_REQUEST
+  };
+}
+
+const userLocationSuccess = (longitude, latitude) => {
+  return {
+    type: USER_LOCATION_SUCCESS,
+    longitude,
+    latitude
+  };
+}
+
+const userLocationError = (exception) => {
+  return {
+    type: USER_LOCATION_ERROR,
+    exception
+  };
+}
+
+export const fetchUserLocation = () => {
+  return dispatch => {      
+    dispatch(userLocationFetching());
+
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+
+    function successCallback(position) {
+
+      const { longitude, latitude } = position.coords;
+      dispatch(fetchNearbyStations(longitude, latitude));
+      dispatch(userLocationSuccess(longitude, latitude))
+
+    }
+
+    function errorCallback(exception) {
+      dispatch(userLocationError(exception))
+    }
+  }
+}
+
+
+
+
