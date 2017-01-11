@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import StationList from './StationList'
+import StationListContainer from '../containers/StationListContainer'
 
 import {
   fetchNearbyStations,
@@ -15,27 +15,13 @@ class App extends React.Component {
   }
 
   render() { 
-
-    const nearbyStations = this.props.nearbyStations.stations;
-    const fetchingStations = this.props.nearbyStations.fetching;
-
     return (
       <div className="app">
         <h1>Bay Area Bike Share Nearby Stations</h1>
-        <StationList 
-          stations={nearbyStations}
-          stationsFetching={fetchingStations}
-        />
+        <StationListContainer />
       </div>
     )
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    nearbyStations: state.nearbyStations,
-    userLocation: state.userLocation
-   };
-}
-
-export default connect(mapStateToProps, null)(App);
+export default connect(null, null)(App);

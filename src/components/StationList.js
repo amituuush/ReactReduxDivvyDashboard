@@ -1,6 +1,14 @@
 import React from 'react'
 import StationExcerpt from './StationExcerpt'
 
+const renderError = (exception) => {
+  return (
+    <p className="loading-error">
+      {exception}
+    </p>
+  )
+}
+
 const renderLoadingSpinner = () => {
   return (
     <p className="loading-spinner">
@@ -29,15 +37,26 @@ const renderStationList = (stations) => {
 
 const StationList = (props) => {
 
+  let markup;
+
+  if(props.stationsFetching) {
+    markup = renderLoadingSpinner();
+  } else if(props.stationsError) {
+    markup = renderError(props.stationsError);
+  } else if((props.stations)) {
+    markup = renderStationList(props.stations);
+  }
+
   return (
     <div className="station-list">
-      { props.stations.fetching ? renderLoadingSpinner(): renderStationList(props.stations) }
+      { markup }
     </div>
   )
 }
 
 StationList.propTypes = { 
   stationsFetching: React.PropTypes.bool,
+  stationsError: React.PropTypes.string,
   stations: React.PropTypes.array 
 };
 

@@ -15,23 +15,27 @@ import {
 export const nearbyStations = (state={
   stations: [],
   showingNearbyStations: false,
-  fetching: false
+  fetching: false,
+  error: false
 }, action) => {
   switch (action.type) {
     case NEARBY_STATIONS_REQUEST:
       return Object.assign({}, state, {
-        stations: false,
-        fetching: true
+        stations: [],
+        fetching: true,
+        error: false        
       });
     case NEARBY_STATIONS_SUCCESS:
       return Object.assign({}, state, {
         stations: action.stations,
-        fetching: false
+        fetching: false,
+        error: false
       });
     case NEARBY_STATIONS_ERROR:
       return Object.assign({}, state, {
-        stations: false,
-        fetching: false
+        stations: [],
+        fetching: false,
+        error: action.exception
       });
     default:
       return state
@@ -48,7 +52,6 @@ export const userLocation = (state={}, action) => {
         },
         fetching: false
       });
-      return state;
     case USER_LOCATION_SUCCESS:
       return Object.assign({}, state, {
         position: {
@@ -62,7 +65,6 @@ export const userLocation = (state={}, action) => {
         position: false,
         fetching: false
       });
-      return state;
     default:
       return state
   }

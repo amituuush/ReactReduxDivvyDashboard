@@ -40,7 +40,12 @@ export const fetchNearbyStations = (lat = '37.774929', lon = '-122.419416', maxS
     dispatch(fetchNearbyStationsFetching());
 
     return fetch(createApiURL(lat, lon, maxStations))
-      .then(response => response.json())
+      .then(function(response) {
+        if (!response.ok) {
+            throw Error(response.statusText);
+        }
+        return response.json();
+      })
       .then(json => dispatch(fetchNearbyStationsSuccess(json)))
       .catch(ex => dispatch(fetchNearbyStationsError(ex)))
   }
@@ -61,6 +66,7 @@ const userLocationSuccess = (longitude, latitude) => {
 }
 
 const userLocationError = (exception) => {
+  console.log('caught error');
   return {
     type: USER_LOCATION_ERROR,
     exception
