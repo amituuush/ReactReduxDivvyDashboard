@@ -15,10 +15,14 @@ const renderStationList = (stations) => {
       { stations && stations.map( (station, index) => {
         return (
           <li key={index}>
-            <StationExcerpt stationName={station.properties.stationName} availableBikes={station.properties.availableBikes} availableDocks={station.properties.availableDocks}/>
+            <StationExcerpt 
+              stationName={station.properties.stationName}
+              availableBikes={station.properties.availableBikes}
+              availableDocks={station.properties.availableDocks}
+            />
           </li>
         )
-      }) }
+      })}
     </ul>
   )
 }
@@ -36,6 +40,7 @@ StationList.propTypes = {
   stationsFetching: React.PropTypes.bool,
   stations: React.PropTypes.array 
 };
+
 StationList.defaultProps = { stations: [] };
 
 export default StationList;

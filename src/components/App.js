@@ -21,7 +21,7 @@ class App extends React.Component {
 
     return (
       <div className="app">
-        <h1>Nearby Stations</h1>
+        <h1>Bay Area Bike Share Nearby Stations</h1>
         <StationList 
           stations={nearbyStations}
           stationsFetching={fetchingStations}

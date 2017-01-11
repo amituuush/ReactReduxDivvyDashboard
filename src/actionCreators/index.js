@@ -40,14 +40,8 @@ export const fetchNearbyStations = (lat = '37.774929', lon = '-122.419416', maxS
     dispatch(fetchNearbyStationsFetching());
 
     return fetch(createApiURL(lat, lon, maxStations))
-      .then(function(response) {
-        return response.json();
-      } )
-      .then(
-        function(json) {
-          dispatch(fetchNearbyStationsSuccess(json))
-        }
-      )
+      .then(response => response.json())
+      .then(json => dispatch(fetchNearbyStationsSuccess(json)))
       .catch(ex => dispatch(fetchNearbyStationsError(ex)))
   }
 }
@@ -74,25 +68,22 @@ const userLocationError = (exception) => {
 }
 
 export const fetchUserLocation = () => {
-  return dispatch => {
+  return dispatch => {      
+    dispatch(userLocationFetching());
 
-      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 
-      function successCallback(position) {
+    function successCallback(position) {
 
-        const { longitude, latitude } = position.coords;
-        dispatch(fetchNearbyStations(longitude, latitude));
-        dispatch(userLocationSuccess(longitude, latitude))
+      const { longitude, latitude } = position.coords;
+      dispatch(fetchNearbyStations(longitude, latitude));
+      dispatch(userLocationSuccess(longitude, latitude))
 
-      }
+    }
 
-      function errorCallback(exception) {
-        dispatch(userLocationError(exception))
-      }
-
-
-      dispatch(userLocationFetching());
-    
+    function errorCallback(exception) {
+      dispatch(userLocationError(exception))
+    }
   }
 }
 
