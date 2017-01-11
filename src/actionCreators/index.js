@@ -1,20 +1,19 @@
 import axios from 'axios';
+import createApiURL from '../helpers'
 import {
   FETCH_NEARBY_STATIONS,
   FETCH_USER_LOCATION
 } from '../actionTypes';
 
-var API_ROUTE = 'http://shrouded-beach-2183.herokuapp.com/stations/nearby?lat=25&lon=122'
+export const fetchNearbyStations = (lat = 37.774929, lon = -122.419416, maxStations = 5) => {
 
-export const fetchNearbyStations = (lat, lon) => ({
-
-  var request = axios.get(`http://shrouded-beach-2183.herokuapp.com/stations/nearby?lat=${lat}&lon=${lon}`);
+  var request = axios.get(createApiURL(lat, lon, maxStations));
 
   return {
     type: FETCH_NEARBY_STATIONS,
     payload: request
   }
-})
+}
 
 export const fetchUserLocation = () => {
   if(navigator.location) {

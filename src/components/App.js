@@ -1,11 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
 import {
   fetchNearbyStations,
   fetchUserLocation
 } from '../actionCreators';
-
-import { increment, decrement, } from '../actionCreators'
 
 class App extends React.Component {
 
@@ -14,16 +14,14 @@ class App extends React.Component {
     this.props.fetchNearbyStations(this.props.userLocation);
   }
 
-  render() {
-
-  console.log(this.props.nearbyStations);
-    return <div className="app">
-      <h1>Nearby Stations</h1>
-
-    </div>
+  render() {      
+    return (
+      <div className="app">
+        <h1>Nearby Stations</h1>
+      </div>
+    )
   }
 }
-
 
 function mapStateToProps(state) {
   return {
