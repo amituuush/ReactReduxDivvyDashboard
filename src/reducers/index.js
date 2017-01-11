@@ -12,17 +12,27 @@ import {
 
 } from '../actionTypes';
 
-
-
-export const nearbyStations = (state=[], action) => {
+export const nearbyStations = (state={
+  stations: [],
+  showingNearbyStations: false,
+  fetching: false
+}, action) => {
   switch (action.type) {
     case NEARBY_STATIONS_REQUEST:
-      return state;
+      return Object.assign({}, state, {
+        stations: false,
+        fetching: true
+      });
     case NEARBY_STATIONS_SUCCESS:
-      return action.stations;
+      return Object.assign({}, state, {
+        stations: action.stations,
+        fetching: false
+      });
     case NEARBY_STATIONS_ERROR:
-      return state;
-      /* TODO */
+      return Object.assign({}, state, {
+        stations: false,
+        fetching: false
+      });
     default:
       return state
   }
@@ -31,15 +41,27 @@ export const nearbyStations = (state=[], action) => {
 export const userLocation = (state={}, action) => {
   switch (action.type) {
     case USER_LOCATION_REQUEST:
-      /* TODO */
+      return Object.assign({}, state, {
+        position: {
+          latitude: action.latitude,
+          longitude: action.longitude
+        },
+        fetching: false
+      });
       return state;
     case USER_LOCATION_SUCCESS:
-      return {
-        longitude: action.longitude,
-        latitude: action.latitude
-      };
+      return Object.assign({}, state, {
+        position: {
+          latitude: action.latitude,
+          longitude: action.longitude
+        },
+        fetching: false
+      });
     case USER_LOCATION_ERROR:
-      /* TODO */
+      return Object.assign({}, state, {
+        position: false,
+        fetching: false
+      });
       return state;
     default:
       return state

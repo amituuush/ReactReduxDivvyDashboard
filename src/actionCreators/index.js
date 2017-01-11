@@ -33,7 +33,6 @@ const fetchNearbyStationsError = (exception) => {
   };
 }
 
-
 export const fetchNearbyStations = (lat = '37.774929', lon = '-122.419416', maxStations = 5) => {
 
   return dispatch => {
@@ -59,10 +58,11 @@ const userLocationFetching = () => {
   };
 }
 
-const userLocationSuccess = (stations) => {
+const userLocationSuccess = (longitude, latitude) => {
   return {
     type: USER_LOCATION_SUCCESS,
-    stations
+    longitude,
+    latitude
   };
 }
 
@@ -75,24 +75,24 @@ const userLocationError = (exception) => {
 
 export const fetchUserLocation = () => {
   return dispatch => {
-    if(navigator.location) {
 
-      dispatch(userLocationFetching());
+      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 
-      var successCallback = (position) => {
+      function successCallback(position) {
 
-        let { longitude, latitude } = position.coords;
-
+        const { longitude, latitude } = position.coords;
+        dispatch(fetchNearbyStations(longitude, latitude));
         dispatch(userLocationSuccess(longitude, latitude))
 
       }
 
-      var errorCallback = (exception) => {
+      function errorCallback(exception) {
         dispatch(userLocationError(exception))
       }
 
-      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    }
+
+      dispatch(userLocationFetching());
+    
   }
 }
 

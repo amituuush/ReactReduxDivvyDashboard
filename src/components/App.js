@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import StationList from './StationList'
 
 import {
@@ -11,18 +10,22 @@ import {
 class App extends React.Component {
 
   componentDidMount() {
-    this.props.fetchUserLocation();
-    this.props.fetchNearbyStations();
+    this.props.dispatch(fetchUserLocation());
+    this.props.dispatch(fetchNearbyStations());
   }
 
   render() { 
 
-    const nearbyStations = this.props.nearbyStations;
+    const nearbyStations = this.props.nearbyStations.stations;
+    const fetchingStations = this.props.nearbyStations.fetching;
 
     return (
       <div className="app">
         <h1>Nearby Stations</h1>
-        <StationList stations={nearbyStations}/>
+        <StationList 
+          stations={nearbyStations}
+          stationsFetching={fetchingStations}
+        />
       </div>
     )
   }
@@ -35,8 +38,4 @@ function mapStateToProps(state) {
    };
 }
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchNearbyStations, fetchUserLocation }, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, null)(App);
