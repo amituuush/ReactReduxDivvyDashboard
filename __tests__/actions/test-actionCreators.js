@@ -27,7 +27,7 @@ describe("Async fetch station details from the server.", () => {
 
     // Set up nock with the example data.
 
-    nock('https://shrouded-beach-2183.herokuapp.com')
+    nock('https://bay-area-bike-share-api.herokuapp.com')
       .get('/stations/nearby?lat=37.774929&lon=-122.419416&max_stations=5').reply(200, []);
 
     // create a mock store

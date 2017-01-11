@@ -10,6 +10,6 @@ describe("createApiURL", () => {
     const url = createApiURL(lat, lon, max_stations);
     expect (
       url
-    ).toEqual('https://shrouded-beach-2183.herokuapp.com/stations/nearby?lat=100&lon=-35&max_stations=5')
+    ).toEqual('https://bay-area-bike-share-api.herokuapp.com/stations/nearby?lat=100&lon=-35&max_stations=5')
   });
 })
