@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { createApiURL } from '../helpers'
 import fetch from 'isomorphic-fetch';
 
@@ -14,28 +13,9 @@ import {
 
 } from '../actionTypes';
 
-export const fetchNearbyStations = (lat = 37.774929, lon = -122.419416, maxStations = 5) => {
-
-  return dispatch => {
-
-    dispatch(fetchNearbyStationsFetching());
-
-    return fetch(createApiURL(lat, lon, maxStations))
-      .then(function(response) {
-        return response.json();
-      } )
-      .then(function(json) {
-        console.log(json);
-          dispatch(fetchNearbyStationsSuccess(json))
-        }
-      )
-      .catch(ex => dispatch(fetchNearbyStationsError(ex)))
-  }
-}
-
 const fetchNearbyStationsFetching = () => {
   return ({
-    type: 'NEARBY_STATIONS_REQUEST'
+    type: NEARBY_STATIONS_REQUEST
   });
 }
 
@@ -53,33 +33,23 @@ const fetchNearbyStationsError = (exception) => {
   };
 }
 
-export const fetchUserLocation = () => {
+
+export const fetchNearbyStations = (lat = '37.774929', lon = '-122.419416', maxStations = 5) => {
+
   return dispatch => {
-    if(navigator.location) {
 
-      dispatch(userLocationFetching());
+    dispatch(fetchNearbyStationsFetching());
 
-      var successCallback = (position) => {
-
-        let { longitude, latitude } = position.coords;
-
-        return {
-          type: FETCH_USER_LOCATION,
-          longitude,
-          latitude
+    return fetch(createApiURL(lat, lon, maxStations))
+      .then(function(response) {
+        return response.json();
+      } )
+      .then(
+        function(json) {
+          dispatch(fetchNearbyStationsSuccess(json))
         }
-      }
-
-      var errorCallback = () => {
-        return {
-          type: FETCH_USER_LOCATION,
-          longitude: -87,
-          latitude: 41
-        }
-      }
-
-      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    }
+      )
+      .catch(ex => dispatch(fetchNearbyStationsError(ex)))
   }
 }
 
@@ -102,5 +72,30 @@ const userLocationError = (exception) => {
     exception
   };
 }
+
+export const fetchUserLocation = () => {
+  return dispatch => {
+    if(navigator.location) {
+
+      dispatch(userLocationFetching());
+
+      var successCallback = (position) => {
+
+        let { longitude, latitude } = position.coords;
+
+        dispatch(userLocationSuccess(longitude, latitude))
+
+      }
+
+      var errorCallback = (exception) => {
+        dispatch(userLocationError(exception))
+      }
+
+      navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+    }
+  }
+}
+
+
 
 

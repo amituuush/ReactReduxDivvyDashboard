@@ -5,18 +5,12 @@ import station from '../../data/stationExcerptMock'
 
 describe("Station Excerpt", () => {
   describe("displays bike stats", () => {
-
-    const station = {
-      stationName: "Test Station Wow",
-      availableBikes: 10,
-      availableDocks: 15
-    }
  
     const wrapper = mount(
       <StationExcerpt 
-        stationName={station.stationName}
-        availableBikes={station.availableBikes}
-        availableDocks={station.availableDocks}
+        stationName={station.properties.stationName}
+        availableBikes={station.properties.availableBikes}
+        availableDocks={station.properties.availableDocks}
       />
     )
 

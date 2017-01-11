@@ -9,7 +9,7 @@ const StationList = (props) => {
         { props.stations && props.stations.map( (station, index) => {
           return (
             <li key={index}>
-              <StationExcerpt station={station}/>
+              <StationExcerpt stationName={station.properties.name} availableBikes={station.properties.availableBikes} availableDocks={station.properties.availableDocks}/>
             </li>
           )
         }) }

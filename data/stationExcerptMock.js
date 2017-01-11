@@ -1,5 +1,7 @@
 export default {
-  stationName: "Test Station Wow",
-  availableBikes: 10,
-  availableDocks: 15
+  properties: {
+    stationName: "Test Station Wow",
+    availableBikes: 10,
+    availableDocks: 15
+  }
 }
