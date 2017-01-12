@@ -6,7 +6,6 @@ import {
 
 const nearbyStations = (state={
   stations: [],
-  showingNearbyStations: false,
   fetching: false,
   error: false
 }, action) => {

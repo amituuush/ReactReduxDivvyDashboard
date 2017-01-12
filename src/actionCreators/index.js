@@ -13,20 +13,20 @@ import {
 
 } from '../actionTypes';
 
-const fetchNearbyStationsFetching = () => {
+export const fetchNearbyStationsFetching = () => {
   return ({
     type: NEARBY_STATIONS_REQUEST
   });
 }
 
-const fetchNearbyStationsSuccess = (stations) => {
+export const fetchNearbyStationsSuccess = (stations) => {
   return {
     type: NEARBY_STATIONS_SUCCESS,
     stations
   };
 }
 
-const fetchNearbyStationsError = (exception) => {
+export const fetchNearbyStationsError = (exception) => {
   return {
     type: NEARBY_STATIONS_ERROR,
     exception
@@ -51,13 +51,13 @@ export const fetchNearbyStations = (lat = '37.774929', lon = '-122.419416', maxS
   }
 }
 
-const userLocationFetching = () => {
+export const userLocationFetching = () => {
   return {
     type: USER_LOCATION_REQUEST
   };
 }
 
-const userLocationSuccess = (longitude, latitude) => {
+export const userLocationSuccess = (longitude, latitude) => {
   return {
     type: USER_LOCATION_SUCCESS,
     longitude,
@@ -65,8 +65,7 @@ const userLocationSuccess = (longitude, latitude) => {
   };
 }
 
-const userLocationError = (exception) => {
-  console.log('caught error');
+export const userLocationError = (exception) => {
   return {
     type: USER_LOCATION_ERROR,
     exception
