@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import StationExcerpt from '../components/StationExcerpt'
-import {Table, TableBody, TableHeader, TableRow, TableHeaderColumn} from 'material-ui/Table'
+import { Table, TableBody, TableHeader, TableRow, TableHeaderColumn, TableRowColumn } from 'material-ui/Table'
 
 // const renderError = (exception) => {
 //   return (
@@ -36,23 +36,22 @@ import {Table, TableBody, TableHeader, TableRow, TableHeaderColumn} from 'materi
 //   )
 // }
 
-const StationList = (props) => {
-  console.log(props);
-  const { stationsFetching, stationsError, stations } = this.props;
+const StationList = ({stationsFetching, stationsError, stations}) => {
   let stationList;
+  // console.log(props);
 
   if (stationsFetching) {
     stationList = (
-      <p className="loading-spinner">
-        Loading...
-      </p>
+      <TableRow className="loading-spinner">
+        <TableRowColumn>Loading...</TableRowColumn>
+      </TableRow>
     );
   }
   else if (stationsError) {
     stationList = (
-      <p className="loading-error">
-        {props.stationsError}
-      </p>
+      <TableRow className="loading-error">
+        <TableRowColumn>{stationsError}</TableRowColumn>
+      </TableRow>
     );
   } else if (stations) {
     stationList = stations.map((station, index) => {
