@@ -1,56 +1,65 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import StationExcerpt from '../components/StationExcerpt'
 import { Table, TableBody, TableHeader, TableRow, TableHeaderColumn, TableRowColumn } from 'material-ui/Table'
+import * as actions from '../actionCreators'
 
+class StationList extends Component {
 
-const StationList = ({stationsFetching, stationsError, stations}) => {
-  let stationList;
-
-  if (stationsFetching) {
-    stationList = (
-      <TableRow className="loading-spinner">
-        <TableRowColumn>Loading...</TableRowColumn>
-      </TableRow>
-    );
+  componentDidMount() {
+    this.props.fetchUserLocation();
+    this.props.fetchNearbyStations();
   }
-  else if (stationsError) {
-    stationList = (
-      <TableRow className="loading-error">
-        <TableRowColumn>{stationsError}</TableRowColumn>
-      </TableRow>
-    );
-  } else if (stations) {
-    stationList = stations.map((station, index) => {
-        return (
-            <StationExcerpt
-              stationName={station.properties.stationName}
-              availableBikes={station.properties.availableBikes}
-              availableDocks={station.properties.availableDocks}
-              key={index}
-            />
-        );
-      })
-    }
 
-  return (
-    <div className="station-list">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHeaderColumn>Station Name</TableHeaderColumn>
-            <TableHeaderColumn>Available Bikes</TableHeaderColumn>
-            <TableHeaderColumn>Available Docks</TableHeaderColumn>
-            <TableHeaderColumn>Total Bikes</TableHeaderColumn>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          { stationList }
-        </TableBody>
-      </Table>
-    </div>
-  )
+  render() {
+    let stationList;
+
+    if (this.props.stationsFetching) {
+      stationList = (
+        <TableRow className="loading-spinner">
+          <TableRowColumn>Loading...</TableRowColumn>
+        </TableRow>
+      );
+    }
+    else if (this.props.stationsError) {
+      stationList = (
+        <TableRow className="loading-error">
+          <TableRowColumn>{this.props.stationsError}</TableRowColumn>
+        </TableRow>
+      );
+    } else if (this.props.stations) {
+      stationList = this.props.stations.map((station, index) => {
+          return (
+              <StationExcerpt
+                stationName={station.properties.stationName}
+                availableBikes={station.properties.availableBikes}
+                availableDocks={station.properties.availableDocks}
+                key={index}
+              />
+          );
+        })
+      }
+
+    return (
+      <div className="station-list">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHeaderColumn>Station Name</TableHeaderColumn>
+              <TableHeaderColumn>Available Bikes</TableHeaderColumn>
+              <TableHeaderColumn>Available Docks</TableHeaderColumn>
+              <TableHeaderColumn>Total Bikes</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            { stationList }
+          </TableBody>
+        </Table>
+      </div>
+    )
+  }
 }
+
 
 StationList.propTypes = {
   stationsFetching: React.PropTypes.bool,
@@ -68,4 +77,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(StationList);
+export default connect(mapStateToProps, actions)(StationList);
