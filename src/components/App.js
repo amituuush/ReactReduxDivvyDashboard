@@ -1,6 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import StationListContainer from '../containers/StationListContainer'
+import StationList from '../containers/StationList'
+import AppBar from 'material-ui/AppBar'
+import injectTapEventPlugin from 'react-tap-event-plugin'
+injectTapEventPlugin();
 
 import {
   fetchNearbyStations,
@@ -14,11 +17,15 @@ class App extends React.Component {
     this.props.dispatch(fetchNearbyStations());
   }
 
-  render() { 
+  render() {
+
     return (
       <div className="app">
-        <h1>Bay Area Bike Share Nearby Stations</h1>
-        <StationListContainer />
+        <AppBar
+          title="Bay Area Bike Share Nearby Stations"
+          iconClassNameRight="muidocs-icon-navigation-expand-more"
+        />
+        <StationList />
       </div>
     )
   }

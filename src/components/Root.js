@@ -1,13 +1,16 @@
-import React from 'react'
-import { Provider } from 'react-redux'
-import configureStore from '../configureStore'
+import React from 'react';
+import { Provider } from 'react-redux';
+import configureStore from '../configureStore';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import App from './App'
+import App from './App';
 
-export default () => { 
+export default () => {
   return (
     <Provider store={configureStore()}>
-      <App />
+      <MuiThemeProvider>
+        <App />
+      </MuiThemeProvider>
     </Provider>
   )
 }

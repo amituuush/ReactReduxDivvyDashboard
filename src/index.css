@@ -3,3 +3,7 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.station-excerpt__name, .station-excerpt__bikes, .station-excerpt__docks, ..station-excerpt__total {
+  text-align: center !important;
+}
