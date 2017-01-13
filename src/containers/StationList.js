@@ -8,7 +8,6 @@ class StationList extends Component {
 
   componentDidMount() {
     this.props.fetchUserLocation();
-    this.props.fetchNearbyStations();
   }
 
   render() {
