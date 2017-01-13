@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import StationListContainer from '../containers/StationListContainer'
+import AppBar from 'material-ui/AppBar';
 
 import {
   fetchNearbyStations,
@@ -14,9 +15,12 @@ class App extends React.Component {
     this.props.dispatch(fetchNearbyStations());
   }
 
-  render() { 
+  render() {
     return (
       <div className="app">
+        <AppBar
+          iconClassNameRight="muidocs-icon-navigation-expand-more"
+        />
         <h1>Bay Area Bike Share Nearby Stations</h1>
         <StationListContainer />
       </div>

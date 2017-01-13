@@ -1,5 +1,6 @@
 import React from 'react'
 import StationExcerpt from './StationExcerpt'
+import {Table, TableBody, TableHeader, TableRow, TableHeaderColumn} from 'material-ui/Table'
 
 const renderError = (exception) => {
   return (
@@ -19,19 +20,18 @@ const renderLoadingSpinner = () => {
 
 const renderStationList = (stations) => {
   return (
-    <ul>
+    <div>
       { stations && stations.map( (station, index) => {
         return (
-          <li key={index}>
-            <StationExcerpt 
+            <StationExcerpt
               stationName={station.properties.stationName}
               availableBikes={station.properties.availableBikes}
               availableDocks={station.properties.availableDocks}
+              key={index}
             />
-          </li>
         )
       })}
-    </ul>
+    </div>
   )
 }
 
@@ -49,15 +49,29 @@ const StationList = (props) => {
 
   return (
     <div className="station-list">
-      { markup }
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHeaderColumn>Station Name</TableHeaderColumn>
+            <TableHeaderColumn>Available Bikes</TableHeaderColumn>
+            <TableHeaderColumn>Available Docks</TableHeaderColumn>
+            <TableHeaderColumn>Total Bikes</TableHeaderColumn>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          { markup }
+        </TableBody>
+      </Table>
+
+
     </div>
   )
 }
 
-StationList.propTypes = { 
+StationList.propTypes = {
   stationsFetching: React.PropTypes.bool,
   stationsError: React.PropTypes.string,
-  stations: React.PropTypes.array 
+  stations: React.PropTypes.array
 };
 
 StationList.defaultProps = { stations: [] };

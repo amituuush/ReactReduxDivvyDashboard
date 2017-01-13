@@ -1,4 +1,5 @@
 import React from 'react'
+import { TableRow, TableRowColumn } from 'material-ui/Table'
 
 const StationExcerpt = (props) => {
 
@@ -6,16 +7,16 @@ const StationExcerpt = (props) => {
   const totalBikes = availableDocks + availableBikes;
 
   return (
-    <div className="station-excerpt">
-      <h3 className="station-excerpt__name">{stationName}</h3>
-      <p>Available Bikes: <span className="station-excerpt__bikes">{availableBikes}</span></p>
-      <p>Available Docks: <span className="station-excerpt__docks">{availableDocks}</span></p>
-      <p>Total Bikes: <span className="station-excerpt__total">{totalBikes}</span></p>
-    </div>
+    <TableRow className="station-excerpt">
+      <TableRowColumn className="station-excerpt__name">{stationName}</TableRowColumn>
+      <TableRowColumn className="station-excerpt__bikes">{availableBikes}</TableRowColumn>
+      <TableRowColumn className="station-excerpt__docks">{availableDocks}</TableRowColumn>
+      <TableRowColumn className="station-excerpt__total">{totalBikes}</TableRowColumn>
+    </TableRow>
   )
 }
 
-StationExcerpt.propTypes = { 
+StationExcerpt.propTypes = {
   stationName: React.PropTypes.string,
   availableBikes: React.PropTypes.number,
   availableDocks: React.PropTypes.number
