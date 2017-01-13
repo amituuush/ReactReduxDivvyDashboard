@@ -1,4 +1,4 @@
-import { fetchNearbyStations, fetchUserLocation } from '../../src/actionCreators'
+import { fetchNearbyStations, fetchUserLocation, userLocationFetching, userLocationSuccess, userLocationError } from '../../src/actionCreators'
 import nock from 'nock'
 import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk';
@@ -47,5 +47,21 @@ describe("Async fetch station details from the server.", () => {
 });
 
 describe('Get user location', () => {
+  describe('userLocationFetching', () => {
+    it('has the correct type', () => {
+      const action = userLocationFetching();
+      expect(action.type).to.equal(USER_LOCATION_REQUEST);
+    });
+  });
 
+  describe('userLocationSuccess', () => {
+    it('has the correct type', () => {
+      const action = userLocationSuccess();
+      expect(action.type).to.equal(USER_LOCATION_SUCCESS);
+    });
+
+    it('receives a longitude and latitude', () => {
+
+    });
+  });
 })

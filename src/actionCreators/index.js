@@ -77,7 +77,6 @@ export const fetchUserLocation = () => {
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 
     function successCallback(position) {
-
       const { longitude, latitude } = position.coords;
       dispatch(fetchNearbyStations(longitude, latitude));
       dispatch(userLocationSuccess(longitude, latitude));
