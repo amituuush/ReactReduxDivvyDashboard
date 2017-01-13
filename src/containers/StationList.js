@@ -3,42 +3,9 @@ import { connect } from 'react-redux'
 import StationExcerpt from '../components/StationExcerpt'
 import { Table, TableBody, TableHeader, TableRow, TableHeaderColumn, TableRowColumn } from 'material-ui/Table'
 
-// const renderError = (exception) => {
-//   return (
-//     <p className="loading-error">
-//       {exception}
-//     </p>
-//   )
-// }
-//
-// const renderLoadingSpinner = () => {
-//   return (
-//     <p className="loading-spinner">
-//       Loading...
-//     </p>
-//   )
-// }
-//
-// const renderStationList = (stations) => {
-//   return (
-//     <div>
-//       { stations && stations.map( (station, index) => {
-//         return (
-//             <StationExcerpt
-//               stationName={station.properties.stationName}
-//               availableBikes={station.properties.availableBikes}
-//               availableDocks={station.properties.availableDocks}
-//               key={index}
-//             />
-//         )
-//       })}
-//     </div>
-//   )
-// }
 
 const StationList = ({stationsFetching, stationsError, stations}) => {
   let stationList;
-  // console.log(props);
 
   if (stationsFetching) {
     stationList = (

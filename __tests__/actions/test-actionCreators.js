@@ -4,7 +4,6 @@ import configureMockStore from 'redux-mock-store'
 import thunk from 'redux-thunk';
 
 import {
-
   NEARBY_STATIONS_REQUEST,
   NEARBY_STATIONS_SUCCESS,
   NEARBY_STATIONS_ERROR,
@@ -12,7 +11,6 @@ import {
   USER_LOCATION_REQUEST,
   USER_LOCATION_SUCCESS,
   USER_LOCATION_ERROR,
-
 } from '../../src/actionTypes';
 
 const mockStore = configureMockStore([thunk])
@@ -45,8 +43,9 @@ describe("Async fetch station details from the server.", () => {
       .then(() => { // return of async actions
         expect(store.getActions()).toEqual(expectedActions)
       })
-
-
-
   });
 });
+
+describe('Get user location', () => {
+
+})

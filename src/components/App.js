@@ -13,6 +13,7 @@ import {
 class App extends React.Component {
 
   componentDidMount() {
+    console.log(this.props.dispatch(fetchUserLocation()));
     this.props.dispatch(fetchUserLocation());
     this.props.dispatch(fetchNearbyStations());
   }

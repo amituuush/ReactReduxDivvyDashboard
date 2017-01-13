@@ -80,12 +80,11 @@ export const fetchUserLocation = () => {
 
       const { longitude, latitude } = position.coords;
       dispatch(fetchNearbyStations(longitude, latitude));
-      dispatch(userLocationSuccess(longitude, latitude))
-
+      dispatch(userLocationSuccess(longitude, latitude));
     }
 
     function errorCallback(exception) {
-      dispatch(userLocationError(exception))
+      dispatch(userLocationError(exception));
     }
   }
 }
