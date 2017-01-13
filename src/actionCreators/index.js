@@ -2,15 +2,13 @@ import { createApiURL } from '../helpers'
 import fetch from 'isomorphic-fetch';
 
 import {
-
   NEARBY_STATIONS_REQUEST,
   NEARBY_STATIONS_SUCCESS,
   NEARBY_STATIONS_ERROR,
 
   USER_LOCATION_REQUEST,
   USER_LOCATION_SUCCESS,
-  USER_LOCATION_ERROR,
-
+  USER_LOCATION_ERROR
 } from '../actionTypes';
 
 export const fetchNearbyStationsFetching = () => {
@@ -73,7 +71,7 @@ export const userLocationError = (exception) => {
 }
 
 export const fetchUserLocation = () => {
-  return dispatch => {      
+  return dispatch => {
     dispatch(userLocationFetching());
 
     navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
@@ -91,7 +89,3 @@ export const fetchUserLocation = () => {
     }
   }
 }
-
-
-
-
