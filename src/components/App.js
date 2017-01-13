@@ -22,9 +22,9 @@ class App extends React.Component {
     return (
       <div className="app">
         <AppBar
+          title="Bay Area Bike Share Nearby Stations"
           iconClassNameRight="muidocs-icon-navigation-expand-more"
         />
-        <h1>Bay Area Bike Share Nearby Stations</h1>
         <StationList />
       </div>
     )

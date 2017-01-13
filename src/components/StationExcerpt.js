@@ -10,8 +10,7 @@ const StationExcerpt = (props) => {
   return (
     <TableRow className="station-excerpt">
       <TableRowColumn
-        className="station-excerpt__name"
-        style={{ textAlign: 'center'}} >
+        className="station-excerpt__name" >
           {stationName}
       </TableRowColumn>
       <TableRowColumn
