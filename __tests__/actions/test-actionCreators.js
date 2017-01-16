@@ -60,8 +60,8 @@ describe('Get user location', () => {
       expect(action.type).to.equal(USER_LOCATION_SUCCESS);
     });
 
-    it('receives a longitude and latitude', () => {
-
+    it('has longitude and latitude properties', () => {
+      
     });
   });
 })
