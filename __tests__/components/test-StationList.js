@@ -1,7 +1,7 @@
 // A Test for Station List
 import React from 'react'
 import ReactDOM from 'react-dom';
-import StationList from '../../src/components/StationList'
+import StationList from '../../src/containers/StationList'
 import StationExcerpt from '../../src/components/StationExcerpt'
 import { shallow } from 'enzyme'
 import station from '../../data/stationExcerptMock'
@@ -32,7 +32,7 @@ describe("Station List", () => {
     it("Should show the correct number of stations", () => {
       expect(
         wrapper.find('li').length
-      ).toBe(3);      
+      ).toBe(3);
     });
   });
 });
