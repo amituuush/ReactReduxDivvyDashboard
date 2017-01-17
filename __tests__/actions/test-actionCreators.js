@@ -50,18 +50,18 @@ describe('Get user location', () => {
   describe('userLocationFetching', () => {
     it('has the correct type', () => {
       const action = userLocationFetching();
-      expect(action.type).to.equal(USER_LOCATION_REQUEST);
+      expect(action.type).toEqual(USER_LOCATION_REQUEST);
     });
   });
 
   describe('userLocationSuccess', () => {
     it('has the correct type', () => {
       const action = userLocationSuccess();
-      expect(action.type).to.equal(USER_LOCATION_SUCCESS);
+      expect(action.type).toEqual(USER_LOCATION_SUCCESS);
     });
 
     it('has longitude and latitude properties', () => {
-      
+
     });
   });
 })
